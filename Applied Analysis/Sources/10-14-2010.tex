@@ -1,0 +1,100 @@
+\documentclass[cm]{article}
+\usepackage{macros}
+\usepackage{wasysym}
+\usepackage{unnumthm}
+
+\newcommand{\xbar}{\overline{x}}
+\newcommand{\tbar}{\overline{t}}
+\newcommand{\utilde}{\tilde{u}}
+\newcommand{\Mtilde}{\tilde{M}}
+
+\begin{document}
+\section{Midterm Exam Discussion}
+Last material for midterm is today.\\
+Exam materials - 6 pages of notes. Perhaps can use Maple or Mathematica.
+\section{Well Posed Problems}
+Well posed problems have three characteristics
+\enum
+\item[1)] Existence - A solution exists.
+\item[2)] Uniqueness - There is only one solution.
+\item[3)] Stability - Small changes in initial data only change the solution slightly.
+\xenum
+\section{Stability}
+Stability has similar observations as Fourier convergence.\\
+Our first tool is Energy.\\
+Example:\\
+Suppose $u(x,t)$ satisfies
+\begin{align*}
+\text{DE:}&~u_t = u_{xx} \quad -l \leq x \leq l \quad t > 0 \\
+\text{BC:}&~u(-l,t) = 0, \quad u(l,t) = 0, \quad t > 0 \tag{D}\\
+\text{IC:}&~u(x,0) = f(x), \quad -l < x < l
+\end{align*}
+Show that $u(x,t)$ is stable blank to perturbations in the IC, $f(x)$.\\
+Solution: Suppose $u_1(x,t)$ and $u_2(x,t)$\footnote{$u_i(x,t) \in C_x^2[-l,l],C_t^1[0,t]$} satisfy (D) with $f(x) = f_1(x)$ and $f(x) = f_2(x)$ respectively. Suppose also
+$$\max_{-l < x < l} |f_1(x) - f_2(x)| < \epsilon.$$
+We wish to show $$|u_1(x,t) - u_2(x,t)| < \delta$$ where as $\epsilon \to 0$, $\delta \to 0$. Let
+$$E[u] = \int_{-l}^{l} \frac{u^2}{2}~dx.$$
+Previously we showed $$\frac{dE}{dt} \leq 0.$$
+Let $v = u_1 - u_2$. Then $$v(x,0) = u_1(x,0) - u_2(x,0) = f_1(x) - f_2(x).$$
+Now $v$ satisfies (D) with $$v(x,0) = f_1 - f_2.$$
+Note 
+\begin{align*}
+E[v(0)] &= \frac12 \int_{-l}^l [f_1(x,0) - f_2(x,0)]^2~dx \\
+&\leq \frac12 \cdot 2l \cdot \epsilon^2 \\
+&= \epsilon^2 l.
+\end{align*}
+But
+$$E[v(x,t)] \leq E[v(x,0)].$$
+So
+\begin{align*}
+\epsilon^2l &\geq \int_{-l}^l \frac{v^2}{2}~dx \\
+&= \frac12 \int_{-l}^l [u_1 - u_2]^2 ~dx\\
+\epsilon^22l &\geq \int_{-l}^l [u_1 - u_2]^2~dx \\
+\epsilon \sqrt{2l} &\geq \sqrt{\int_{-l}^l[u_1 - u_2]^2~dx} \\
+&= ||u_1 - u_2||
+\end{align*}
+This is $L^2$-stability. In fact this says nothing about
+$$\max_{-l < x < l} |u_1(x,t) - u_2(x,t)|.$$
+We need something stronger to show \emph{pointwise stability}.
+\subsection{The Maximum Principle}
+\thm[The Maximum Principle]
+If $u(x,t)$ satisfies $u_t = Du_{xx}$ in a rectangle in spacetime, (say $-l < x < l, 0 < t < T$), then the maximum of $u(x,t)$ occurs initially (on $u(x,0)$ for $-l \leq x \leq l$) or on the lateral boundaries ($u(l,t)$ or $u(-l,t)$ for $0 \leq t \leq T$.)\footnote{$u(x,t) \in C_x^2[-l,l],C_t[0,T]$} This is what is called the weak maximum principle; that the function assumes its maximum on the boundary. There exists a \emph{strong maximum principle}, which states that it only assumes its maximum on the boundary, unless $u$ is constant.
+\xthm
+\cor[Minimum Principle]
+MP is true if ``maximum'' is replaced by ``minimum''.\\
+Proof: Replace $u(x,t)$ by $-u(x,t)$.
+\xcor
+Back to stability for a second. If
+$$\max|u_1(x,0) - u_2(x,0)| = \max|f_1(x) - f_2(x)| < \delta,$$
+then initially $|v(x,0)| < \delta$ and also $v(-l,t) = v(l,t) = 0$. This implies
+$$\max_{-l < x < l} |u_1(x,t) - u_2(x,t)| < \delta$$
+for all $t$, $0 < t < T$. This is \emph{pointwise stability}.
+\subsubsection{Proof of the Maximum Principle}
+Motivation: Suppose we have a maximum in the interior of a region $R = [-l,l]\times[0,T]$ - call it $(\xbar,\tbar)$. Then $u_t(\xbar,\tbar) = u_x(\xbar,t) = 0$. Well if it's a maximum, we might guess $u_xx < 0$. But, $u_t = Du_{xx} < 0$ then. This is a contradiction.\\
+Problem: Suppose $u_xx = 0.$\\
+Solution: We lift the function. Let $$M_1 = \max_R [u(x,t)]$$ and $$M_2 = \max_{t = 0 \cup x = l \cup x = -l \in R}[u(x,t)].$$ He now waves his hands: these are both compact sets, thus they achieve their maximums, so these exist. Suppose $M_1 > M_2$. Let $M_1 - M_2 = \epsilon$. Let $\utilde(x,t) = u(x,t) + \frac{\epsilon}{2} \frac{x^2}{l^2}$.
+For $\utilde(x,t)$,
+\begin{align*}
+\Mtilde_1 &= \max_R[\utilde(x,t)] = M_1 - \frac{\epsilon}{2} > M_2 \\
+\Mtilde_2 &= \max_{t = 0 \cup x = l \cup x = -l \in R}[\utilde(x,t)] \leq M_2.
+\end{align*}
+So $\Mtilde_1 > \Mtilde_2$. But
+\begin{align*}
+\utilde_t &= u_t + \frac{\partial}{\partial t} [\frac{\epsilon}{2} (\frac{x^2}{l^2} - 1)] \\
+&= u_t \\
+\utilde_{xx} &= u_{xx} + \frac{\partial^2}{\partial x^2} [\frac{\epsilon}{2}(\frac{x^2}{l^2} - 1)] \\
+&= u_{xx} + \frac{\epsilon}{l^2}.
+\end{align*}
+So
+$$\utilde_t - D \utilde_{xx} = \underbrace{u_t - Du_{xx}}_{=0} - \frac{\epsilon D}{l^2}$$
+and
+$$\utilde_t = D\utilde_{xx} - \frac{\epsilon D}{l^2}.$$
+If $\utilde_t = 0$, this implies $D\utilde_{xx} = \frac{\epsilon D}{l^2} > 0$
+any point in the interior that in an extrenum $(u_t = u_x = 0)$ has $\utilde_{xx} = \frac{\epsilon}{l^2} > 0$. Therefore it is not a maximum.\\
+What about the top boundary? If the maximum occurs on $t = T$, then $\utilde_t(x,T) \geq 0,$
+which implies
+$$D\utilde_t(x,t) - \frac{\epsilon D}{l^2} \geq 0,$$
+or
+$$\utilde_{xx}(x,T) \geq \frac{\epsilon}{l^2} > 0.$$
+So the upper boundary is convex up. \smiley
+\end{document}

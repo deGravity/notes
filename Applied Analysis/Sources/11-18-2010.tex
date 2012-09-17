@@ -1,0 +1,175 @@
+\documentclass[cm]{article}
+\usepackage{macros}
+\usepackage{unnumthm}
+\usepackage{wasysym}
+
+\title{Math 180 Notes}
+\author{Professor Bernoff}
+\date{11/18/2010}
+
+\begin{document}
+\section{Sturm-Liouville Theory Revisited}
+Previously we showed that the SLEP
+\begin{align*}
+\text{DE:}&~y'' + \lambda y = 0 a < x < b\\
+\text{BC:}&~ y(a) = 0 \quad \text{OR} \quad y'(a) = 0 \\
+    &~ y(b) = 0 \quad \text{OR} \quad y'(b) = 0
+\end{align*}
+has a set of real non-negative eigenvalues
+$$ 0 \leq \lambda_1 \leq \lambda_2 \leq \cdots < \lambda_n \cdots$$
+with associated eigenfunctions
+$$y_1(x), y_2(x), \ldots, y_n(x),\ldots$$
+which are orthogonal in the $L^2$ inner-product
+$$\langle y_n(x), y_m(x)\rangle = \int_{x=a}^b y_n(x) y_m(x)~dx = \begin{cases}
+0 \quad n \neq m \\ c_n n = m \end{cases}.$$
+This idea generalizes:
+\defn
+A {\bf Sturm-Liouville Eigenvalue Problem} (SLEP) for $y(x)$ on $x \ in [a,b]$
+is
+\begin{equation*}
+(s(x)y')' + [\lambda p(x) - q(x)]y = 0 \tag{SLEP}
+\end{equation*}
+subject to
+\enum
+\item $s(x), p(x), q(x)$ are continuous on $x \in [a,b]$.
+\item $s(x), p(x) > 0$ on $x \in (a,b)$\footnote{There is a very important case
+where they do vanish at the endpoints.}
+\xenum
+\xdefn
+\nt
+Previously, we considered
+$$s(x) = 1, p(x) = 1, q(x) = 0.$$
+\xnt
+There are many relevant examples
+\ex
+Heat equation with a variable thermal conductivity for $u(x,t)$.
+\begin{align*}
+\text{DE:}&~ u_t = \frac{\partial}{\partial x} \left( D(x) \frac{\partial
+    u}{\partial x} \right) \qquad a < x < b, t > 0 \\
+\text{BC:}&~ u(a,t) = 0, \quad u(1,t) = 0 \qquad t > 0 \\
+\text{IC:}&~ u(x,0) = f(x) \qquad a < x < b
+\end{align*}
+Separation of variables suggests solutions of the form
+$$u(x,t) = e^{-\lambda t} y(x)$$
+which yields
+\begin{align*}
+\text{DE} &\to e^{-\lambda t}[- \lambda y(x) ] \\
+        &= e^{- \lambda t}\left[\frac{\partial}{\partial x}\left(D(x) \frac{\partial
+                y}{\partial x}\right)\right]
+\end{align*}
+We cancel $e^{- \lambda t}$ and see
+\begin{equation*}
+\frac{d}{dx} [D(x) \frac{dy}{dx}] + \lambda y(x) = 0
+\end{equation*}
+$$\text{BC's} \to y(a) = y(b) = 0.$$
+If $D(x) > 0$ we find this has an infinite set of eigenfunctions and eigenvalues
+$$ \lambda_1 < \lambda_2 \cdots < \lambda_n \cdots$$
+with $\lambda_n$ real
+$$\langle y_n(x), y_m(x) \rangle = 0$$
+if $n \neq m$.
+\xex
+\ex
+{\bf Schr\"oedinger's Equation and the Harmonic Oscillator}.
+Note that $\hbar = \frac{h}{2 \pi}$, $h = $ Plank's Constant.
+\begin{equation*}
+i \hbar \frac{\partial \Psi}{\partial t} = - \frac{\hbar^2}{2m} \Psi_{xx} + V(x)
+    \Psi \qquad - \infty < x < \infty, t > 0
+\end{equation*}
+Suppose $V(x) = \frac12 mw^2x^2$. I can look for solutions via separation of
+variables
+$$\Psi(x,t) = y(x) e^{-\frac{i \lambda_n}{\hbar} t}$$
+when $\lambda_n$ = ``Energy''. This implies that
+$$\lambda_n y_n(x) = - \frac{\hbar^2}{2m} (y_n)_{xx} + \frac12 m w^2 x^2 y_n.$$
+Re-writing, we see
+$$\frac{\hbar^2}{2m}(y_n)_{xx} + (\lambda_n - \frac12 m w^2 x^2)y_n = 0. \qquad
+x > 0$$
+Note that this is the form of a SLEP, $s(x) = \frac{\hbar^2}{2m}, p(x) = 1, q(x)
+= \frac12 mw^2x^2$. This has a well known set of eigenfunctions:
+$$y_n(x) = \left(\frac{\alpha}{\pi}\right)^{1/4} \frac{1}{\sqrt{2^nn!}}H_n(x)
+    e^{-x^2/2}, \qquad n= 0, 1, 2, \ldots$$
+$H_n(x) = $ nth Hermite Polynomial, $\alpha = \frac{mw}{\hbar}$, $\lambda_n =
+(n+ \frac12) \hbar w$ and
+$$\langle y_n(x), y_m(x) \rangle = \infint y_n(x)y_m(x)~dx = 0 \qquad n \neq m$$
+\xex
+\ex
+{\bf Axisymmetric Heat Equation}
+Consider $u(r,t)$ (disk picture on board)
+\begin{align*}
+\text{DE:}&~ u_t = D \nabla^2 u =D(u_{rr} + \frac{1}{r} u_r) \qquad r < a, t >
+0\\
+\text{BC:}&~u(a,t) = 0, u(0,t) \text{ bounded}, t > 0 \\
+\text{IC:}&~u(r,0) = f(r)
+\end{align*}
+Separation of variables suggests
+\begin{align*}
+u_n(r,t) = e^{- \lambda_n D t} y_n(r) \\
+(y_n)_{rr} + \frac{1}{r} (y_n)_r = - \lambda_n y_n
+\end{align*}
+But now multiply by $r$
+\begin{align*}
+r(y_n)_{rr} + (y_n)_r + \lambda_n^ry_n &= \\
+(r(y_n)_r)_r + \lambda_n r y_n &= 0 \qquad 0 < r < a
+\end{align*}
+$y_n(0)$ is bounded, $y_n(a) = 0$.
+$$y_n = J_0(\frac{r}{a} \alpha_n) \quad n = 1,2,3,\ldots$$
+wher $J_0$ is a Bessel function and $\alpha_n$ is the $n$th zero of $J_0$, that
+is $J_0(\alpha_n) = 0$. AND
+\begin{align*}
+\langle y_n(r), y_m(r)\rangle_r &= \int_0^a y_n(r)y_m(r) r ~dr \\
+&= 0\qquad n \neq m
+\end{align*}
+is a ``weighted inner product.''
+\xex
+\section{Eigenvalues and Eigenfunctions of SLEP}
+Suppose $g_n(x)$ satisfies SLEP on $a < x < b$ with the BC's
+$y(a) = 0$ or $y'(a) = 0$ or $s(a) = 0$
+and
+$y(b) = 0$ or $y'(b) = 0$ or $s(b) = 0$.
+\thm
+The eigenvalues are real.
+\xthm
+\prf
+Multiply SLEP evaluated at $y = y_n$ by $y_n^\ast$ and $\int_a^b$
+\begin{align*}
+\int_{x=a}^b y_n^\ast(sy'_n)'~dx + \lambda \int_{x=a}^b y_n^\ast y_n~dx -
+\int_{x=a}^b qy_n^\ast y_n~dx &= 0\\
+\int_{x=a}^b y_n^\ast(sy'_n)'~dx  &= \underbrace{y_n^\ast}_{=0} \\
+    &\leq y_n' \Big[_{x=a}^b - \int_{x=a}^b(y_n^\ast)'y_n's~dx+ blank - blank \\
+    &= 0
+\end{align*}
+So
+$$ \lambda = \frac{ \int_{x=a}^b q|y_n|^2~dx + \int_{x=a}^b sy_n'|^2~dx}
+{\int_{x= a}^{b}p |y_n|^2~dx}.$$
+This is real. Moreover if $q(x) \geq 0$, $a < x < b$ then $\lambda \geq 0$
+\xprf
+\subsection{Orthagonality}
+\thm
+Suppose $y_n(x)$ satisfies SLEP and SLEP-BC's. Then
+$$\langle y_n(x), y_m(x) \rangle_{y(x)} = \int_{x=a}^b y_n(x) y_m(x)p(x)~dx = 0$$
+if $n \neq m$.
+\xthm
+\prf
+Suppose we consider SLEP with $y(x) = g_n(x)$. Multiply by $y_m(x)$ and
+integrate from $x = a$ to $x = b$.
+\begin{align*}
+\int_{x=a}^b y_m(sy'_n)'~dx + \int_{x=a}^b \lambda_n y_n y_m p(x)~dx - \int_{x=a}^{x=b} q(x) y_n y_m~dx &= 0 \\
+\int_{x=a}^b y_m(sy'_n)'~dx &= \underbrace{y_m s}_{0 \text{ by ICs}} y_n' \Big[_{x=a}^b - \int_{x=a}^{b} y_m' - y_n'~dx \\
+   &= \underbrace{-y_m'sy_n}_{=0} \Big[_{x=a}^b + \int_{x=a}^{x=b} (y_m's)'y_n~dx
+\end{align*}
+So ($\ast$) becomes
+$$\int{x=a}^b (y_m's)' y_n~dx + \lambda_n \langle y_n, y_m \rangle_p -
+\int_{x=a}^by_ny_mq(x)~dx.$$
+But $y_m$ satisfies
+$$(y_m's)' + [\lambda_m p(x) - q(x)]y_m = 0,$$
+so
+\begin{align*}
+- \int_{x=a}^b[\lambda_m p(x) - q(x)]y_my_n~dx + \lambda_n \langle y_n, y_m
+    \rangle_p - \int_{x =a}^b y_ny_m q(x)~dx &= 0
+\end{align*}
+The rightmost term partially cancels the leftmost, so
+$$(\lambda_n - \lambda_m) \langle y_n, y_m \rangle_p = 0.$$
+Either $\lambda_n = \lambda_m$ or
+$$\langle y_n, y_m \rangle_p = 0.$$
+\smiley
+\xprf
+\end{document}

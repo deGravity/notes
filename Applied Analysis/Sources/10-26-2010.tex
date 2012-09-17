@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage{macros}
+
+\begin{document}
+
+\section{Shifting Gears}
+This week:
+\enum
+\item Wave equation (Cauchy Problem)
+\item d'Alembert's Solution
+\item Fourier Transform
+\xenum
+This will take next 3 weeks. Basically, we are now studying problems on $-\infty < x < \infty$, i.e., the real line. Problems on the whole real line are generally called Cauchy Problems.
+
+\section{Cauchy Problem for the Wave Equation}
+\begin{align*}
+\text{DE: } u_{tt} &= c^2u_{xx} \qquad -\infty < x < \infty \\
+\text{IC: } u(x,0) &= f(x) \tag{c}\\
+						u(x,0) &= g(x)
+\end{align*}
+Think waterwaves: $u(x,t) = $ displacement from the mean (picture in one-note). We can solve this via a change of variables, similar to the method of characteristics.
+\subsection{Solution 1: Factoring}
+Write this problem as
+\begin{align*}
+\frac{\partial^2 u}{\partial t^2} - c^2 \frac{\partial^2 u}{\partial x^2} &= 0 \\
+\left(\frac{\partial}{\partial t} - c \frac{\partial}{\partial x}\right)\left( \frac{\partial}{\partial t} + c \frac{\partial}{\partial x}\right)u &= 0 \\
+\left(\frac{\partial}{\partial t} + c \frac{\partial}{\partial x}\right)\left(\frac{\partial}{\partial t} - c \frac{\partial}{\partial x}\right)u &= 0
+\end{align*}
+So if
+$$\left( \frac{\partial}{\partial t} + c \frac{\partial}{\partial x}\right) u = u_t + c u_x = 0$$
+then $u$ satisfies (c). But we know the solution of $$u_t + c u_x = 0$$ to be $$u(x,t) = A(x-ct),$$ where $A$ is an arbitrary function.
+Similarly, if $$\left(\frac{\partial}{\partial t} - c \frac{\partial}{\partial x}\right)u = 0$$ then $u$ satisfies (c) $$u_t - cu_x = 0$$ which mean that $$u(x,t) = B(x+ct),$$ where $B$ is an arbitrary function. By linearity, $$u(x,t) = A(x-ct) + B(x+ct)$$ is a solution.\\
+This is not very rigorous, however; we can do better.
+\subsection{Solution 2: Change of Variables}
+Let $$\xi = x - ct$$ and $$\eta = x + ct.$$ So (diagram in one-note). Now we change variables from $u(x,t)$ to $u(\xi, \eta)$:
+\begin{align*}
+u_t &= u_{\xi} \xi_t + u_{\eta} \eta_t = -c u_{\xi} + cu_{\eta} \\
+u_x &= u_{\xi} \xi_x + u_{\eta} \eta_x =  u_{\xi} + u_{\eta}.
+\end{align*}
+Remember $u_{\xi}(\xi,\eta)$, $u_{\eta}(\xi,\eta)$
+\begin{align*}
+u_{tt} &= -c u_{\xi\xi} \xi_t - cu_{\xi\eta}\eta_t + cu_{\eta\xi}\xi_t + cu_{\eta\eta}\eta_t \\
+&= c^2 u_{\xi\xi} - c^2 u_{\xi \eta} - c^2u_{\eta \xi} + c^2u_{\eta \eta} \\
+&= c^2( u_{\xi \xi} + u_{\eta \eta} - 2 u_{\eta \xi})
+\end{align*}
+where we have assumed twice differentiability. Also
+\begin{align*}
+u_{nn} &= u_{\xi \xi} \xi_x + u_{\xi \eta}\eta_x + u_{\eta \xi} \xi_x + u_{\eta \eta}\eta_x \\
+&= u_{\xi \xi} + u_{\xi \eta} + u_{\eta \xi} + u_{\eta \eta} \\ 
+&= u_{\xi \xi} + 2 u_{\eta \xi} + u_{\eta \eta}.
+\end{align*}
+now
+\begin{align*}
+u_{tt} - c^2u_{xx} &= c^2[u_{\xi\xi} + u_{\eta\eta} - 2 u_{\eta \xi}] - c^2[u_{\xi \xi} + u_{\eta \eta} + 2 u_{\eta \xi}] \\
+&= -4 c^2 u_{\eta \xi}
+\end{align*}
+so $u(\eta, \xi)$, $u_{\eta \xi} = 0$.
+Note
+$$(u_{\eta})_{\xi} = 0,$$ which implies $u_n = C(n)$. Now integrate with respect to $\eta$:
+\begin{align*}
+u(\eta,\xi) &= \int^\eta C(\eta')d\eta' + D(\xi) \\
+&= E(\eta) + D(\xi).
+\end{align*}
+Reversing the change of variables;
+$$u(x,t) = E(x+ct) + D(x - ct).$$
+Note that we have not yet used the initial conditions.
+\subsubsection{Initial Condition}
+To apply the IC's to
+$$u(x,t) = A(x-ct) + B(x+ct).$$
+Note
+\begin{equation*}
+u(x,0) = A(x) + B(x) = f(x). \tag{*}
+\end{equation*}
+Also 
+\begin{align*}
+u_t(x,t) &= A'(x-ct)(-c) + B'(x+ct)(c) \\
+&= -cA'(x-ct) + cB'(x+ct)
+\end{align*}
+\footnote{Suppose $A = A(\xi)$ and $\xi = x - ct$, then $A_t = A_{\xi}\xi_t = A_{\xi}(-c) = -cA'$. The use of ``$~'$ '' denotes the derivative with respect to the argument.}
+So $$u_t(x,0) = -cA'(x) + cB'(x) = g(x).$$ Differentiate (*):
+$$A'(x) + B'(x) = f'(x).$$
+So the solution is
+\begin{align*}
+ B'(x) &= \frac12[f'(x) + \frac{1}{c} g(x)] \\
+ A'(x) &= \frac12[f'(x) - \frac{1}{c} g(x)].
+\end{align*}
+To solve, integrate each from $x = 0$ to $x = z$.
+\begin{align*}
+\int_0^z B'(x)~dx &= \frac12 \int_0^z f'(x) ~dx + \frac{1}{2c} \int_0^z g(x)~dx,
+\end{align*}
+which by the fundamental theorem of calculus tells me
+\begin{align*}
+B(z) - B(0) = \frac12 [f(z) - f(0)] + \frac{1}{2c} \left[\int_0^z g(x)~dx\right].
+\end{align*}
+Repeat this procedure for $A$:
+\begin{align*}
+\int_0^z A'(x)~dx &= \frac12 \left[\int_0^z f'(x)~dx - \frac{1}{c} \int_0^z g(x)~dx\right]\\
+A(z) - A(0) &= \frac12 \left[f(z) - f(0) - \frac{1}{c} \int_0^z g(x)~dx\right] \\
+A(z) &= \frac12\left[f(z) - f(0) - \frac{1}{c} \int_0^z g(x)~dx\right] + A(0).
+\end{align*}
+We want to combine these two, so re-arrange to solve for $B(z)$,
+\begin{align*}
+B(z) &= \frac12 [f(z) - f(0)] + \frac{1}{2c} \left[\int_0^z g(x)~dx\right] + B(0).
+\end{align*}
+Also, insert dummy variables to yield
+\begin{align*}
+A(z) &= \frac12\left[f(z) - f(0) - \frac{1}{c} \int_0^z g(y)~dy\right] + A(0) \\
+B(z) &= \frac12 [f(z) - f(0)] + \frac{1}{2c} \left[\int_0^z g(y)~dy\right] + B(0).
+\end{align*}
+Then
+\begin{align*}
+u(x,t) &= A(x-ct) + B(x+ct) \\
+&= \frac12 [f(x-ct) - f(0) - \frac{1}{c} \int_{y=0}^{x-ct} g(y)~dy] + \frac12 [ f(x+ct) - f(0) + \frac{1}{c} \int_{y=0}^{x+ct} g(y)~dy]+A(0) + B(0) \\
+&= \frac12[f(x-ct)+f(x+ct)] + \frac{1}{2c} [\int_0^{x+ct}g(y)~dy - \int_0^{x-ct} g(y)~dy] + A(0) + B(0) - f(0)
+\end{align*}
+But ($\ast$)$|_{x=0}$ implies that $A(0) + B(0) = f(0),$ so
+\begin{align*}
+u(x,t) &= \frac12[f(x-ct)+f(x+ct)] + \frac{1}{2c} [\int_0^{x+ct}g(y)~dy - \int_0^{x-ct} g(y)~dy] \\
+&= \frac12[f(x-ct) + f(x+ct)]+\frac{1}{2c} \int_{x-ct}^{x+ct} g(y)~dy.
+\end{align*}
+This is the final solution, called \emph{d'Alembert's Solution}. Note that the prescence of $x - ct$ and $x + ct$ indicates traveling waves propogating in opposite directions.
+\subsection{Example 1:}
+Suppose $g(x) = 0$, and $f(x) = e^{-x^2}$. Then $$u(x,t) = \frac12 [ e^{-(x-ct)^2} + e^{-(x+ct)^2}].$$ Graphs in one-note. This is one solution. There is another solution, and we have actually seen it before.
+\subsection{Example 2:}
+Suppose $g(x) = 0$ and $f(x)$ is the odd periodic continuation of (graph in one note). By d'Alembert, $$u(x,t) = \frac12[f(x-ct) + f(x+ct)].$$ By symmetry, $$u(0,t) = 0$$ and $$u(l,t) = 0,$$ so the solution solves the Dirichlet problem with $u(x,0) = \text{triangle initial condition}$ and $u_t(x,0) = 0$. The graph of this solution in time is (graph in one-note).
+\end{document}

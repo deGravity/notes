@@ -1,0 +1,102 @@
+\documentclass[cm]{article}
+\usepackage{macros}
+\usepackage{unnumthm}
+
+\title{Diffusion of Heat in a Disc}
+\author{Professor Bernoff}
+\begin{document}
+\maketitle
+There are some problems that have very different properties in odd and even
+dimensions. Diffusion of heat is one such problem.
+
+Consider a disc with an axisymmetric heat distribution.
+
+\begin{align*}
+\text{DE:}&~ u_t = D\nabla^2u = D(u_{rr} + \frac{1}{r} u_r) \qquad r < a \\
+\text{BC:}&~ u(a,t) = 0 \\
+    &~ u(0,t) \text{ is bounded} \\
+\text{IC:}&~u(r,0) = f(r)
+\end{align*}
+Example distribution drawn on the board. Separate variables.
+$$u(r,t) = R(r)T(t)$$
+\begin{align*}
+\text{DE}:&~ u_t = D \nabla^2 u \implies RT_t = DT(R_{rr} + \frac{1}{r} R_r)
+\end{align*}
+Divide by DRT
+$$\frac{T_t}{DT} = \frac{R_{rr} + \frac{1}{r} R_n}{R} = - \lambda.$$
+First solve the $T$-equation
+\begin{align*}
+T_t + \lambda D T &= 0 \\
+T(t) = e^{-\lambda  D t}
+\end{align*}
+and then the $R$-equation
+$$R_{rr} + \frac{1}{r} R_r + \lambda R = 0 \qquad 0 \leq r < a$$
+\begin{align*}
+\text{BC's:}&~ u(a,t) = R(a)T(t) = 0 \implies R(a) = 0 \\
+        &~ u(0,t) \text{ is bounded} \implies \text{$R(0)$ bounded}
+\end{align*}
+I'd like a countable set of eigenvalues $\{ \lambda_1 < \lambda_2 < \lambda_3 < \cdots < \lambda_n < \cdots \}$ and associated eigenfunctions $\{R_n(r)\}$ and an
+orthogonality condition. From the HW, I can rewrite the DE in S-L form. Multiply
+by $r$
+$$rR_{rr} + R_r + \lambda rR = 0.$$
+Then
+$$\frac{d}{dr} \left( r \frac{dR}{dr}\right) + \lambda r R = 0$$
+and $R(a) = 0$, $R(0)$ bounded. This is {\bf Bessel's Equation of order zero}.
+
+\section{Bessel's Equation}
+Bessels's Equation is 
+$$R_{rr} + \frac{1}{r} R_r + (\lambda - \frac{n^2}{r^2})R = 0,$$
+where $n$ is the {\emph order} - it is most commonly an integer.\footnote{When
+$n$ is not an integer we have Ary functions, which are related to
+transmission coefficients in physics.} Our equation is of order zero -
+that is $n = 0$.
+
+The solution is
+$$ R(r) = aJ_0(\sqrt{\lambda}r) + b \mathbb Y_0(\sqrt{\lambda}r)$$
+where $a$ and $b$ are arbitrary constants, and $J_0$ is a {\bf Bessel function
+of the first kind}. Cut to Maple Notebook. Note that
+$$J_n(x) \sim \left(\frac{x}{2}\right)^n / n!$$
+and $$\mathbb Y_n(x) \to - \infty$$ as $x \to 0$.\footnote{The behavior of how
+this approaches $0$ is highly dependent on $n$.}
+\subsubsection{Boundary Conditions}
+Note that as $r \downarrow 0$, $\mathbb Y_0'(r) \to - \infty$, so $b = 0$. Also
+$$R(a) = AJ_0(\sqrt{\lambda}a) = 0$$
+So $\sqrt{\lambda}a$ imust be a zero of the Bessel function. Note $J_0$ has a
+countable sequence of zeroes $0 < \alpha_1 < \alpha_2 < \alpha_3 \cdots <
+\alpha_n \cdots$. Set
+$$\sqrt{\lambda_n}a = \alpha_n \qquad n = 1,2,3,\ldots$$
+and
+$$\lambda_n = \left(\frac{\alpha_n}{a}\right)^2.$$
+From Maple,
+$$\alpha_1 = 2.4, \alpha_2 = 5.52, \alpha_3 = 8.65, \ldots$$
+as $n \to \infty$, $\alpha_n \approx n \pi$.
+
+So summarizing
+$$\lambda_n = \left(\frac{\alpha_n}{a}\right)^2, R_n(r) = J_0(\sqrt{\lambda_n}r)
+    = J_0\left(\frac{\alpha_n r}{a}\right)$$
+Now
+\begin{align*}
+u(x,t) &= \sum_{n = 1}^{\infty} c_n e^{- D \lambda_n t} R_n(r) \\
+u(r,t) &= \sum_{n = 1}^{\infty} c_n e^{-D \left(\frac{\alpha_n}{n}\right)^2 t}
+J_0(\alpha_n \frac{r}{a}).
+\end{align*}
+I determine from the I.C.
+$$u(r,0) = f(r) = \sum_{n = 1}^{\infty} c_n J_0(\frac{\alpha_n r}{a}).$$
+I need an orthogonality condition
+\begin{align*}
+\langle R_n(r), R_m(r) \rangle_r &= 0 \qquad n \neq m \\
+\int_0^a R_n(r) R_m(r) r ~dr &= 0 \qquad n \neq m.
+\end{align*}
+Here we have used a weighted inner product with weight $r$ coming from the
+coefficient $r$ in $\lambda r R$ in Bessel's Equation of order zero. We can now
+use this to find the $c_n$s.
+\begin{align*}
+\langle R_n(r), (r) \rangle_r &= \sum_{n = 1}^{\infty} c_n \langle R_m(r),
+    R_n(r) \rangle_r \\
+    &= c_m \langle R_m(r), R_m(r) \rangle_r \\
+c_m &= \frac{\langle R_m(r), f(r) \rangle}{\langle R_m(r), R_m(r) \rangle} \\
+    &= \frac{\int_0^a f(r) J_0(\alpha_m \frac{r}{a})r~dr}{\int_0^a
+        [J_0(\frac{\alpha_mr}{a})]^2r~dr}.
+\end{align*}
+Now we look at solutions in Maple$\ldots$ {\bf IN 3D!}
+\end{document}
