@@ -1,0 +1,93 @@
+\documentclass[cm]{article}
+\usepackage{macros}
+
+\title{Fields and Waves}
+\author{Vatche Sahakian}
+
+\begin{document}
+
+\maketitle
+
+\section{Classical Fields}
+\subsection{A continuum limit}
+
+A field theory is described by a set of $N$ fields:
+\[ \varphi^a(x^0, x^1, x^2, x^3) = \varphi^a(x) \quad a = 1 \ldots N,\]
+where
+\[x^0 = ct, x^1 = x, x^2 = y, x^3 = z \]
+and $c$ is a characteristic speed of the theory (such and the speed of light or
+the speed of sound.) These fields are governed by a Langrangian functional, for
+example (and using $ \partial_{\mu} \equiv \frac{\partial}{\partial x^{\mu}} $
+for notational convenience)
+\[L=\frac{Y}2 \int dx \left( (\partial_0 \varphi)^2 -(\partial_1\varphi)^2\right).\]
+\defn[Action, Lagrangian Density]
+
+The action in a field theory is
+\[ S = \int dt \  L = \int d^4x \mathcal{L} [\varphi^a, \partial_{\mu} \varphi^a,
+  x^{\mu}] \]
+where $\mathcal{L}$ is the Lagrangian density, and is defined implicitly by the
+above.
+\xdefn
+The Lagrangian density of the earlier example is
+\[ \mathcal{L} = \frac{\sqrt{Y \mu}}{2} \left( (\partial_0 \varphi)^2 -
+    (\partial_1 \varphi)^2 \right). \]
+Field theories can involve fewer or more dimensions than 4. It is the convention
+for this text that time-like dimensions are given the $x^0 = ct$ coordinate. A
+commonality among all field theories is that they carry energy that can be
+viewed as being stored at every spacetime point.
+\subsection{An Action Principle}
+The action principle is that the motion undergone by the system will be that
+which minimizes the action. Thus we wish to find $\varphi^a$ such that the
+variation $\delta S = 0$ (with respect to $\varphi^a$. Following the usual
+derivation of Euler's equations we get the conditions
+\[ \frac{\partial \mathcal{L}}{\partial \varphi^a} = \partial_{\mu} \left(
+  \frac{ \partial \mathcal{L}}{ \partial \partial_{\mu} \varphi^a} \right). \]
+This mirrors the case for discrete degrees of freedom:
+\[ \frac{\partial \mathcal{L}}{\partial q_k} = \frac{d}{dt} \left( \frac{
+  \partial \mathcal{L}}{\partial \dot{q}_k} \right).\]
+\subsection{Complex Fields}
+A field theory consisting of two decoupled scalar fields can be re-written as
+being of one complex field.  For example, for $\varphi^1$ and $\varphi^2$ we can
+write $\varphi = \varphi_1 + i \varphi_2$ and use the identities $\varphi_1 =
+\frac12 (\varphi + \varphi^*)$ and $\varphi_2 = \frac{1}{2i} ( \varphi -
+  \varphi^*)$ to re-write the Lagrangian in terms of $\varphi$ and $\varphi^*$.
+If Euler's equations are used treating these as different fields, the resulting
+equations of motion will be equivalent.
+\section{Symmetries \& Conservation Laws}
+\subsection{Noether's Theorem}
+Noether's Theorem states that for every continuous symmetry of a physical
+system, there exists a conservation law. To understand this, we must first
+define what is meant by a continuous symmetry, and what is meant by a
+conservation law. First, a continuous system is some deformation of the system,
+both of the fields themselves and the coordinates, that preserves the action
+regardless of whether or not the field equations of motion are satisfied.
+Quantitatively we wrtie this as
+\[ \{ \bar{\delta}\varphi^a, \delta x^{\mu} \} \implies \delta S = 0 ,\]
+where $\{ \bar{\delta}\varphi^a, \delta x^{\mu} \}$ is the symmetry (technically
+just a perturbation if the $\delta S = 0$ condition is not satisfied.)
+Propogating the effects of a given perturbation on $S$ to calculate $\delta S$,
+and taking care to take into account the dependence of the fields on the
+coordinates we find that
+\[ \delta S = \int d^4x \left( \frac{\partial \mathcal{L}}{\partial \varphi^a}
+    \bar{\delta}\varphi^a + \frac{ \partial \mathcal{L}}{\partial \partial_{\mu}
+    \varphi^a} \partial_{\mu} \bar{\delta}\varphi^a + \partial_{\mu} (\delta
+      x^{\mu} \mathcal{L}) \right).\]
+
+Now we assume that this pertubation is a symmetry (so set $\delta S = 0$ and
+that the equations of motion are satisfied. Then we get that
+\[ \delta S = 0 = \int d^4x \partial_{\mu} j^{\mu} \]
+where
+\[ j^{\mu} = \frac{\partial \mathcal{L}}{\partial \partial_{\mu} \varphi^a}
+\bar{\delta}\varphi^a + \delta x^{\mu} \mathcal{L} \]
+is the conserved current associated with the symmetry. To see this, note that
+\[ \partial_\mu j^\mu = 0 \ \partial_0 j^0 + \partial_i j^i \]
+so
+\[ \int d^3x \partial_0 j^0 + \int d^3 x \vec{\nabla} \cdot \vec{j} = 0.\]
+Using the divergence theorem and defining the Noether Change $Q$ to be
+\[Q = \int d^3x \frac{j^0}{c}\]
+we can re-arrange this equation to see
+\[ \frac{dQ}{dt} = - \oint d \vec{A} \cdot \vec{j}.\]
+Thus $\frac{j^0}{c}$ is the density of the Noether Charge which is conserved
+over regions in space with the $j^i$ components describing the flux out of the
+regions.
+\end{document}
